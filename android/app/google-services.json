@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "975730871845",
+    "firebase_url": "https://aspire-chat.firebaseio.com",
+    "project_id": "aspire-chat",
+    "storage_bucket": "aspire-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975730871845:android:07240046496ab9932579cc",
+        "android_client_info": {
+          "package_name": "com.example.aspireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975730871845-1cdmj68j5mtn0srvdm4ppd2b4ad1pnmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGtLBHXPURY3RUbK7yS1SQLZhl27W8AXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975730871845-1cdmj68j5mtn0srvdm4ppd2b4ad1pnmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
