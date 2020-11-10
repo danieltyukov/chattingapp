@@ -1,0 +1,4 @@
+flutter_native_splash:
+  image: assets/images/aspirelogo.png
+  color: "0C1C3E"
+  android_disable_fullscreen: true

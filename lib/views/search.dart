@@ -1,9 +1,11 @@
 import 'package:aspireapp/helper/constants.dart';
 import 'package:aspireapp/services/database.dart';
 import 'package:aspireapp/views/chat.dart';
+import 'package:aspireapp/widget/offline.dart';
 import 'package:aspireapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -58,11 +60,25 @@ class _SearchState extends State<Search> {
       String chatRoomId = getChatRoomId(Constants.myName, userName);
 
       Map<String, dynamic> chatRoom = {
+        "timer": DateTime.now().millisecondsSinceEpoch,
         "users": users,
         "chatRoomId": chatRoomId,
       };
 
+      Map<String, int> currentUserCreate = {
+        //while lastVisited is bigger no notification
+        "lastMessage": 0,
+        "lastVisited": DateTime.now().millisecondsSinceEpoch,
+      };
+      Map<String, int> otherUserCreate = {
+        "lastMessage": 0,
+        "lastVisited": DateTime.now().millisecondsSinceEpoch,
+      };
+
       databaseMethods.addChatRoom(chatRoom, chatRoomId);
+      databaseMethods.addCurrentUser(
+          chatRoomId, Constants.myName, currentUserCreate);
+      databaseMethods.addOthertUser(chatRoomId, userName, otherUserCreate);
 
       Navigator.push(
         context,
@@ -102,9 +118,9 @@ class _SearchState extends State<Search> {
                 sendMessage(userName);
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color(0xff036240),
                     borderRadius: BorderRadius.circular(24)),
                 child: Text(
                   "Message",
@@ -135,65 +151,77 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarMain(context),
-      body: isLoading
-          ? Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : Container(
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                    color: Color(0x54FFFFFF),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: searchEditingController,
-                            style: simpleTextStyle(),
-                            decoration: InputDecoration(
-                                hintText: "search username ...",
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                                border: InputBorder.none),
+    return OfflineBuilder(
+      connectivityBuilder: (BuildContext context,
+          ConnectivityResult connectivity, Widget child) {
+        final bool connected = connectivity != ConnectivityResult.none;
+        if (!connected) {
+          return offlinescreen(context);
+        } else {
+          return child;
+        }
+      },
+      child: Scaffold(
+        appBar: appBarMain(context),
+        body: isLoading
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Container(
+                child: Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      color: Color(0x54FFFFFF),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: searchEditingController,
+                              style: simpleTextStyle(),
+                              decoration: InputDecoration(
+                                  hintText: "Search By Full Name",
+                                  hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                  border: InputBorder.none),
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            initiateSearch();
-                          },
-                          child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      colors: [
-                                        const Color(0x36FFFFFF),
-                                        const Color(0x0FFFFFFF)
-                                      ],
-                                      begin: FractionalOffset.topLeft,
-                                      end: FractionalOffset.bottomRight),
-                                  borderRadius: BorderRadius.circular(40)),
-                              padding: EdgeInsets.all(12),
-                              child: Image.asset(
-                                "assets/images/search_white.png",
-                                height: 25,
-                                width: 25,
-                              )),
-                        )
-                      ],
+                          GestureDetector(
+                            onTap: () {
+                              initiateSearch();
+                            },
+                            child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          const Color(0x36FFFFFF),
+                                          const Color(0x0FFFFFFF)
+                                        ],
+                                        begin: FractionalOffset.topLeft,
+                                        end: FractionalOffset.bottomRight),
+                                    borderRadius: BorderRadius.circular(40)),
+                                padding: EdgeInsets.all(12),
+                                child: Image.asset(
+                                  "assets/images/search_white.png",
+                                  height: 25,
+                                  width: 25,
+                                )),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  userList()
-                ],
+                    userList()
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }

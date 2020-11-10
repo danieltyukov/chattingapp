@@ -1,0 +1,32 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.flutter.plugins.firebasemessaging" >
+4
+5    <uses-sdk android:minSdkVersion="16" />
+5-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml
+6
+7    <application>
+7-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:4:3-15:17
+8        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseInstanceIDService" >
+8-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:5:5-9:15
+8-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:5:14-62
+9            <intent-filter>
+9-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:6:7-8:23
+10                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+10-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:7:9-71
+10-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:7:17-69
+11            </intent-filter>
+12        </service>
+13        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
+13-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:10:5-14:15
+13-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:10:14-61
+14            <intent-filter>
+14-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:11:7-13:23
+15                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+15-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:12:9-69
+15-->C:\Users\Sonix\Desktop\Knowledge\Flutter\flutter\.pub-cache\hosted\pub.dartlang.org\firebase_messaging-4.0.0+4\android\src\main\AndroidManifest.xml:12:17-67
+16            </intent-filter>
+17        </service>
+18    </application>
+19
+20</manifest>
