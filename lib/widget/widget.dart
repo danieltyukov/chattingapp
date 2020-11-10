@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 
 Widget appBarMain(BuildContext context) {
   return AppBar(
-    title: Image.asset(
-      "assets/images/logo.png",
-      height: 40,
-    ),
+    title: Row(
+            children: [
+              Text(
+                'Aspire',
+                style: TextStyle(fontSize: 22),
+              ),
+              Text(
+                'Chat',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.lightBlue,
+                ),
+              )
+            ],
+          ),
     elevation: 0.0,
     centerTitle: false,
   );
