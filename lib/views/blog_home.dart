@@ -23,10 +23,10 @@ class _BlogHomePageState extends State<BlogHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
@@ -58,14 +58,15 @@ class _BlogHomePageState extends State<BlogHomePage> {
                         itemBuilder: (context, index) {
                           return BlogsTile(
                             authorName: snapshot
-                                .data.documents[index].data["authorName"],
-                            title: snapshot.data.documents[index].data["title"],
+                                .data.documents[index].data()["authorName"],
+                            title: snapshot.data.documents[index].data()["title"],
                             description:
-                                snapshot.data.documents[index].data["desc"],
+                                snapshot.data.documents[index].data()["desc"],
                             imgUrl:
-                                snapshot.data.documents[index].data["imageUrl"],
+                                snapshot.data.documents[index].data()["imageUrl"],
                             index: index,
                             snapshot: snapshot,
+                            user: user,
                           );
                         },
                       );
@@ -155,6 +156,7 @@ class BlogsTile extends StatelessWidget {
   String imgUrl, title, description, authorName;
   final AsyncSnapshot<dynamic> snapshot;
   final int index;
+  dynamic user;
   BlogsTile({
     @required this.authorName,
     @required this.description,
@@ -162,41 +164,45 @@ class BlogsTile extends StatelessWidget {
     @required this.title,
     @required this.snapshot,
     @required this.index,
+    @required this.user
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {
-        showDialog(
-            context: context,
-            barrierDismissible: true,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Delete The News'),
-                content: Text('You Will Not Be Able To Recover It.'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('No'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    child: Text('Yes'),
-                    onPressed: () {
-                      Firestore.instance
-                          .runTransaction((Transaction myTransaction) async {
-                        await myTransaction
-                            .delete(snapshot.data.documents[index].reference);
-                      });
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              );
-            });
-      },
+      onLongPress: '${user?.email}' == 'principal@aspireschool.ac.cy' ||
+              '${user?.email}' == 'daniel.tyu@aspireschool.com'
+          ? () {
+              showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Delete The News'),
+                      content: Text('You Will Not Be Able To Recover It.'),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Yes'),
+                          onPressed: () {
+                            FirebaseFirestore.instance.runTransaction(
+                                (Transaction myTransaction) async {
+                              await myTransaction.delete(
+                                  snapshot.data.documents[index].reference);
+                            });
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    );
+                  });
+            }
+          : null,
       onTap: () {
         Navigator.push(
           context,

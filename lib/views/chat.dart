@@ -32,14 +32,14 @@ class _ChatState extends State<Chat> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
   File _image;
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _scrollController = new ScrollController();
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
@@ -55,13 +55,13 @@ class _ChatState extends State<Chat> {
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
-                    message: snapshot.data.documents[index].data["message"],
+                    message: snapshot.data.documents[index].data()["message"],
                     sendByMe: Constants.myName ==
-                        snapshot.data.documents[index].data["sendBy"],
-                    sendBy: snapshot.data.documents[index].data["sendBy"],
+                        snapshot.data.documents[index].data()["sendBy"],
+                    sendBy: snapshot.data.documents[index].data()["sendBy"],
                     snapshot: snapshot,
                     index: index,
-                    imageCheck: snapshot.data.documents[index].data["image"],
+                    imageCheck: snapshot.data.documents[index].data()["image"],
                   );
                 },
               )
@@ -130,13 +130,14 @@ class _ChatState extends State<Chat> {
 
     Future uploadPic(BuildContext context) async {
       // String fileName = basename(_image.path);
-      StorageReference firebaseStorageRef = FirebaseStorage.instance
+      Reference firebaseStorageRef = FirebaseStorage.instance
           .ref()
           .child('upload_image')
           .child(
               user.uid + '${DateTime.now().millisecondsSinceEpoch}' + '.jpg');
-      StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+      UploadTask uploadTask = firebaseStorageRef.putFile(_image);
+      //MIGHT CAUSE ERROR
+      TaskSnapshot taskSnapshot = await uploadTask;
       final url = await taskSnapshot.ref.getDownloadURL();
       final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -403,9 +404,8 @@ class MessageTile extends StatelessWidget {
             showDialog(
               context: context,
               barrierDismissible: true,
-              // ignore: missing_return
               builder: (BuildContext context) {
-                if (!sendByMe) {
+                if (sendByMe) {
                   if (imageCheck == 'no') {
                     return AlertDialog(
                       content: Column(
@@ -414,7 +414,7 @@ class MessageTile extends StatelessWidget {
                           FlatButton(
                             child: Text('Unsend Message'),
                             onPressed: () {
-                              Firestore.instance.runTransaction(
+                              FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
                                 await myTransaction.delete(
                                     snapshot.data.documents[index].reference);
@@ -442,7 +442,7 @@ class MessageTile extends StatelessWidget {
                           FlatButton(
                             child: Text('Unsend Message'),
                             onPressed: () {
-                              Firestore.instance.runTransaction(
+                              FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
                                 await myTransaction.delete(
                                     snapshot.data.documents[index].reference);
@@ -483,7 +483,61 @@ class MessageTile extends StatelessWidget {
                     );
                   }
                 } else {
-                  return SizedBox.shrink();
+                  // SizedBox.shrink();
+                  if (imageCheck == 'no') {
+                    return AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FlatButton(
+                            child: Text('Copy Text'),
+                            onPressed: () {
+                              Clipboard.setData(
+                                new ClipboardData(text: message),
+                              );
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FlatButton(
+                            child: Text('Save Image'),
+                            onPressed: () async {
+                              try {
+                                // Saved with this method.
+                                var imageId =
+                                    await ImageDownloader.downloadImage(
+                                        message);
+                                if (imageId == null) {
+                                  return;
+                                }
+                                //FOR FUTURE REFERENCE
+                                // // Below is a method of obtaining saved image information.
+                                // var fileName =
+                                //     await ImageDownloader.findName(imageId);
+                                // var path =
+                                //     await ImageDownloader.findPath(imageId);
+                                // var size =
+                                //     await ImageDownloader.findByteSize(imageId);
+                                // var mimeType =
+                                //     await ImageDownloader.findMimeType(imageId);
+
+                              } on PlatformException catch (error) {
+                                print(error);
+                              }
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  }
                 }
               },
             );

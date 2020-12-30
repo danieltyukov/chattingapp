@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_downloader/image_downloader.dart';
@@ -337,41 +338,79 @@ class _MessageItemState extends State<MessageItem> {
           showDialog(
             context: context,
             barrierDismissible: true,
-            // ignore: missing_return
             builder: (BuildContext context) {
-              return AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FlatButton(
-                      child: Text('Save Image'),
-                      onPressed: () async {
-                        try {
-                          // Saved with this method.
-                          var imageId = await ImageDownloader.downloadImage(
-                              images[index]);
-                          if (imageId == null) {
-                            return;
+              if (widget.document['idFrom'] == widget.currentUserId) {
+                return AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FlatButton(
+                        child: Text('Unsend Message'),
+                        onPressed: () async {
+                          FirebaseFirestore.instance.runTransaction(
+                              (Transaction myTransaction) async {
+                            await myTransaction
+                                .delete(widget.document['images']);
+                          });
+                          Navigator.pop(context);
+
+                          try {
+                            // Saved with this method.
+                            var imageId = await ImageDownloader.downloadImage(
+                                images[index]);
+                            if (imageId == null) {
+                              return;
+                            }
+                          } on PlatformException catch (error) {
+                            print(error);
                           }
-                          //FOR FUTURE REFERENCE
-                          // // Below is a method of obtaining saved image information.
-                          // var fileName =
-                          //     await ImageDownloader.findName(imageId);
-                          // var path =
-                          //     await ImageDownloader.findPath(imageId);
-                          // var size =
-                          //     await ImageDownloader.findByteSize(imageId);
-                          // var mimeType =
-                          //     await ImageDownloader.findMimeType(imageId);
-                        } on PlatformException catch (error) {
-                          print(error);
-                        }
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              );
+                          Navigator.pop(context);
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('Save Image'),
+                        onPressed: () async {
+                          try {
+                            // Saved with this method.
+                            var imageId = await ImageDownloader.downloadImage(
+                                images[index]);
+                            if (imageId == null) {
+                              return;
+                            }
+                          } on PlatformException catch (error) {
+                            print(error);
+                          }
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FlatButton(
+                        child: Text('Save Image'),
+                        onPressed: () async {
+                          try {
+                            // Saved with this method.
+                            var imageId = await ImageDownloader.downloadImage(
+                                images[index]);
+                            if (imageId == null) {
+                              return;
+                            }
+                          } on PlatformException catch (error) {
+                            print(error);
+                          }
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }
             },
           );
         },

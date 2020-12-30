@@ -15,7 +15,7 @@ class _GetImagesState extends State<GetImages> {
 
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
 
   @override
   void initState() {
@@ -24,15 +24,15 @@ class _GetImagesState extends State<GetImages> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = _auth.currentUser;
 
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser;
     return FutureBuilder(
-      future: FirebaseAuth.instance.currentUser(),
       builder: (ctx, futureSnapshot) {
         if (futureSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -41,19 +41,22 @@ class _GetImagesState extends State<GetImages> {
         }
         return StreamBuilder(
           //snapshot allows the stream to happen we set up a screen
-          stream: Firestore.instance
+          stream: FirebaseFirestore.instance
               .collection('users')
-              .document('${user.uid}')
+              .doc('${user.uid}')
               .snapshots(),
-          // ignore: missing_return
+
           builder: (ctx, profileSnapshot) {
             if (profileSnapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-            final profileDocs = profileSnapshot.data;
+            print(profileSnapshot.data.data()['image_url']);
+
+            final profileDocs = profileSnapshot.data.data();
             //builds the text messages
+
             // print(profileDocs['image_url']);
             if (profileDocs['image_url'] != null) {
               Constants.imagePath = profileDocs['image_url'];

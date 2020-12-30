@@ -30,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser user;
+  User user;
   dynamic snapshot;
   // List threads = [];
   bool isLoading = false;
@@ -45,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
@@ -85,7 +85,10 @@ class HomeScreenState extends State<HomeScreen> {
           isLoading: isLoading,
           child: Container(
             child: StreamBuilder(
-              stream: Firestore.instance.collection('threads').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('threads')
+                  .orderBy('timestamp', descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 snapshot = snapshot;
                 if (!snapshot.hasData) {
@@ -97,7 +100,7 @@ class HomeScreenState extends State<HomeScreen> {
                 } else {
                   // get my threads
                   List threads = (snapshot.data.documents as List).where((t) {
-                    return t.data['users']
+                    return t.data()['users']
                         .any((u) => u.documentID == Constants.myName);
                   }).toList();
 
@@ -161,19 +164,19 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) {
     if (mounted) {
       setState(() {
-        threadData = ThreadModel.fromJson(widget.thread.data);
+        threadData = ThreadModel.fromJson(widget.thread.data());
       });
     }
     // get name and photo of second user
-    if ((widget.thread.data["users"] as List).length == 2) {
-      DocumentReference userRef = (widget.thread.data["users"] as List)
+    if ((widget.thread.data()["users"] as List).length == 2) {
+      DocumentReference userRef = (widget.thread.data()["users"] as List)
           .firstWhere((u) => u.documentID != widget.currentUserId);
       userRef.get().then((snap) {
         if (mounted) {
           setState(() {
-            threadData.name = snap.data['name'];
-            threadData.photoUrl = snap.data['photoUrl'];
-            userModel = UserModel.fromJson(snap.data);
+            threadData.name = snap.data()['name'];
+            threadData.photoUrl = snap.data()['photoUrl'];
+            userModel = UserModel.fromJson(snap.data());
           });
         }
       });
@@ -184,10 +187,11 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
   Widget build(BuildContext context) {
     Future uploadGroupPic(BuildContext context) async {
       // String fileName = basename(_image.path);
-      StorageReference firebaseStorageRef =
+      Reference firebaseStorageRef =
           FirebaseStorage.instance.ref().child(_imageGroup.toString());
-      StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageGroup);
-      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+      UploadTask uploadTask = firebaseStorageRef.putFile(_imageGroup);
+      //MIGHT CAUSE AN ERROR
+      TaskSnapshot taskSnapshot = await uploadTask;
       final url = await taskSnapshot.ref.getDownloadURL();
       databaseMethods.groupImageChange(url, widget.thread.documentID);
 
@@ -263,13 +267,13 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
               ),
             ),
             (() {
-              if (Constants.myName == widget.thread.data["creator"]) {
+              if (Constants.myName == widget.thread.data()["creator"]) {
                 return GestureDetector(
                   onTap: () {
                     showDialog(
                         context: context,
                         barrierDismissible: true,
-                        // ignore: missing_return
+                        
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Delete Group Chat?'),
@@ -285,9 +289,9 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                               FlatButton(
                                 child: Text('Yes'),
                                 onPressed: () async {
-                                  await Firestore.instance.runTransaction(
+                                  await FirebaseFirestore.instance.runTransaction(
                                       (Transaction myTransaction) async {
-                                    await myTransaction.delete(widget
+                                     myTransaction.delete(widget
                                         .snapshot
                                         .data
                                         .documents[widget.index]

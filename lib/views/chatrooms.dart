@@ -37,13 +37,13 @@ class _ChatRoomState extends State<ChatRoom> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ChatRoomsTile(
-                    userName: snapshot.data.documents[index].data['chatRoomId']
+                    userName: snapshot.data.documents[index].data()['chatRoomId']
                         .toString()
                         .replaceAll("_", "")
                         .replaceAll(Constants.myName, ""),
                     myuserName: Constants.myName,
                     chatRoomId:
-                        snapshot.data.documents[index].data["chatRoomId"],
+                        snapshot.data.documents[index].data()["chatRoomId"],
                     snapshot: snapshot,
                     index: index,
                   );
@@ -229,11 +229,11 @@ class ChatRoomsTile extends StatelessWidget {
               width: 12,
             ),
             StreamBuilder(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('chatRoom')
-                  .document(chatRoomId)
+                  .doc(chatRoomId)
                   .collection(Constants.myName)
-                  .document(Constants.myName)
+                  .doc(Constants.myName)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -261,7 +261,7 @@ class ChatRoomsTile extends StatelessWidget {
                 showDialog(
                     context: context,
                     barrierDismissible: true,
-                    // ignore: missing_return
+              
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text('Delete Chat Room?'),
@@ -277,7 +277,7 @@ class ChatRoomsTile extends StatelessWidget {
                           FlatButton(
                             child: Text('Yes'),
                             onPressed: () {
-                              Firestore.instance.runTransaction(
+                              FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
                                 await myTransaction.delete(
                                     snapshot.data.documents[index].reference);

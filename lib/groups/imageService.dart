@@ -67,10 +67,11 @@ class ImageServices {
       ByteData byteData = await img.getByteData();
       List<int> imageData = byteData.buffer.asUint8List();
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      StorageReference reference =
+      Reference reference =
           FirebaseStorage.instance.ref().child(fileName);
-      StorageUploadTask uploadTask = reference.putData(imageData);
-      String url = await (await uploadTask.onComplete).ref.getDownloadURL();
+      UploadTask uploadTask = reference.putData(imageData);
+      //MIGHT CAUSE AN ERROR
+      String url = await (await uploadTask).ref.getDownloadURL();
       print('DownLoad url $url');
       _images.add(url);
     }

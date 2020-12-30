@@ -1,10 +1,13 @@
 import 'package:aspireapp/helper/authenticate.dart';
 import 'package:aspireapp/helper/helperfunctions.dart';
 import 'package:aspireapp/views/chatrooms.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -48,7 +51,9 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: userIsLoggedIn != null
-          ? userIsLoggedIn ? ChatRoom() : Authenticate()
+          ? userIsLoggedIn
+              ? ChatRoom()
+              : Authenticate()
           : Container(
               child: Center(
                 child: Authenticate(),
