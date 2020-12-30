@@ -11,12 +11,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 import '../groups/colors.dart';
 import '../groups/messageItem.dart';
 import '../groups/userModel.dart';
 import '../groups/imageService.dart';
-
 
 class GroupChat extends StatelessWidget {
   final String threadId;
@@ -93,14 +91,13 @@ class ChatScreenState extends State<ChatScreen> {
   final ScrollController listScrollController = ScrollController();
   final FocusNode focusNode = FocusNode();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser user;
+  User user;
 
   ImageServices imageServices;
 
   @override
   void initState() {
-    // focusNode.addListener(onFocusChange);
-    // user = await FirebaseAuth.instance.currentUser();
+    
     doSomeAsyncStuff();
 
     readLocal();
@@ -113,7 +110,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
     setState(() {});
   }
 
@@ -228,13 +225,13 @@ class ChatScreenState extends State<ChatScreen> {
     } else {
       textEditingController.clear();
       String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-      var documentReference = Firestore.instance
+      var documentReference = FirebaseFirestore.instance
           .collection('messages')
-          .document(threadId)
+          .doc(threadId)
           .collection(threadId)
-          .document(timeStamp);
+          .doc(timeStamp);
 
-      Firestore.instance.runTransaction((transaction) async {
+      FirebaseFirestore.instance.runTransaction((transaction) async {
         await transaction.set(
           documentReference,
           {
@@ -252,12 +249,13 @@ class ChatScreenState extends State<ChatScreen> {
         );
       });
 
-      Firestore.instance.collection('threads').document(threadId).updateData({
+      FirebaseFirestore.instance.collection('threads').doc(threadId).update({
         'lastMessage': type == 0
             ? content
             : type == 1
                 ? 'photo'
-                : null
+                : null,
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
         //         type == 2
         //             ? 'sticker'
         //             : 'audio',
@@ -314,9 +312,9 @@ class ChatScreenState extends State<ChatScreen> {
               ),
             )
           : StreamBuilder(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('messages')
-                  .document(widget.threadId)
+                  .doc(widget.threadId)
                   .collection(widget.threadId)
                   .orderBy('timestamp', descending: true)
                   .limit(20)

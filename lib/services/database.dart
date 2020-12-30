@@ -2,58 +2,58 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseMethods {
   Future<void> addUserInfo(userData, user) async {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("users")
-        .document(user)
-        .setData(userData)
+        .doc(user)
+        .set(userData)
         .catchError((e) {
       print(e.toString());
     });
   }
 
   getUserInfo(String email) async {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("users")
         .where("userEmail", isEqualTo: email)
-        .getDocuments()
+        .get()
         .catchError((e) {
       print(e.toString());
     });
   }
 
   searchByName(String searchField) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("users")
         .where('userName', isEqualTo: searchField)
-        .getDocuments()
+        .get()
         .catchError((e) {
       print(e.toString());
     });
   }
 
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
-        .setData(chatRoom)
+        .doc(chatRoomId)
+        .set(chatRoom)
         .catchError((e) {
       print(e);
     });
   }
 
   getChats(String chatRoomId) async {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
         .orderBy('time', descending: true)
         .snapshots();
   }
 
   Future<void> addMessage(String chatRoomId, chatMessageData) {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
         .add(chatMessageData)
         .catchError((e) {
@@ -63,12 +63,12 @@ class DatabaseMethods {
 
   Future<void> addCurrentUser(
       String chatRoomId, String userName, currentUserCreate) async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection(userName)
-        .document(userName)
-        .setData(currentUserCreate)
+        .doc(userName)
+        .set(currentUserCreate)
         .catchError((e) {
       print(e.toString());
     });
@@ -76,12 +76,12 @@ class DatabaseMethods {
 
   Future<void> addOthertUser(
       String chatRoomId, String userName, otherUserCreate) async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection(userName)
-        .document(userName)
-        .setData(otherUserCreate)
+        .doc(userName)
+        .set(otherUserCreate)
         .catchError((e) {
       print(e.toString());
     });
@@ -90,51 +90,52 @@ class DatabaseMethods {
   Future<void> messageTime(
       String chatRoomId, String userName, int lastMessage) async {
     print(lastMessage);
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('chatRoom')
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection(userName)
-        .document(userName)
-        .setData(
+        .doc(userName)
+        .set(
       <String, dynamic>{'lastMessage': lastMessage},
-      merge: true,
+      
+      SetOptions(merge : true)
     );
   }
 
   Future<void> visitedTime(
       String chatRoomId, String userName, int lastVisited) async {
     print(lastVisited);
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('chatRoom')
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection(userName)
-        .document(userName)
-        .setData(
+        .doc(userName)
+        .set(
       <String, dynamic>{'lastVisited': lastVisited},
-      merge: true,
+      SetOptions(merge : true)
     );
   }
 
   Future<void> addImage(String url, dynamic user) async {
     print(user);
-    await Firestore.instance.collection('users').document(user).setData(
+    await FirebaseFirestore.instance.collection('users').doc(user).set(
       <String, String>{'image_url': url},
-      merge: true,
+      SetOptions(merge : true)
     );
   }
 
   Future<void> groupImageChange(String url, dynamic threadId) async {
-    await Firestore.instance.collection('threads').document(threadId).setData(
+    await FirebaseFirestore.instance.collection('threads').doc(threadId).set(
       <String, String>{'photoUrl': url},
-      merge: true,
+      SetOptions(merge : true)
     );
   }
 
   Future<void> publishImage(String chatRoomId, chatMessageData) async {
     print(chatRoomId);
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('chatRoom')
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection('chats')
         .add(chatMessageData)
         .catchError((e) {
@@ -143,7 +144,7 @@ class DatabaseMethods {
   }
 
   getUserChats(String itIsMyName) async {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .where('users', arrayContains: itIsMyName)
         .orderBy('timer', descending: true)
@@ -151,20 +152,20 @@ class DatabaseMethods {
   }
 
   sortChats(dynamic timestamp, String chatRoomId) async {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
-        .document(chatRoomId)
-        .setData(
+        .doc(chatRoomId)
+        .set(
       <String, dynamic>{'timer': timestamp},
-      merge: true,
+      SetOptions(merge : true)
     );
   }
 
   Future<bool> usernameCheck(String username) async {
-    final result = await Firestore.instance
+    final result = await FirebaseFirestore.instance
         .collection('users')
         .where('userName', isEqualTo: username)
-        .getDocuments();
-    return result.documents.isEmpty;
+        .get();
+    return result.docs.isEmpty;
   }
 }

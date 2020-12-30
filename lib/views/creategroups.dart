@@ -25,7 +25,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool isLoading = false;
-  FirebaseUser currentUserId;
+  User currentUserId;
   List<UserModel> _selectedUsers = List();
   UserModel curentUserModel;
 
@@ -42,7 +42,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
   }
 
   readLocal() async {
-    currentUserId = await _auth.currentUser();
+    currentUserId =  _auth.currentUser;
   }
 
 //
@@ -54,17 +54,18 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
 
     // firebaseMessaging.subscribeToTopic(threadId);
     String groupName = textEditingController.text;
-    Firestore.instance.collection('threads').document(threadId).setData({
+    FirebaseFirestore.instance.collection('threads').doc(threadId).set({
       'name': groupName,
       'photoUrl': groupPhoto,
       'id': threadId,
       'users': _selectedUsers
-          .map((item) => Firestore.instance
+          .map((item) => FirebaseFirestore.instance
               .collection('users')
-              .document('${item.userName}'))
+              .doc('${item.userName}'))
           .toList(),
       'lastMessage': "",
-      'creator': Constants.myName
+      'creator': Constants.myName,
+      "timestamp": DateTime.now().millisecondsSinceEpoch,
     });
 
     _clearState();
@@ -150,7 +151,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
         body: LoadingStack(
           isLoading: isLoading,
           child: StreamBuilder(
-            stream: Firestore.instance
+            stream: FirebaseFirestore.instance
                 .collection('users')
                 .orderBy('userName')
                 .snapshots(),
@@ -168,7 +169,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     UserModel userZ =
-                        UserModel.fromJson(snapshot.data.documents[index].data);
+                        UserModel.fromJson(snapshot.data.documents[index].data());
                     if (userZ.userName == Constants.myName) {
                       curentUserModel = userZ;
                       return SizedBox();

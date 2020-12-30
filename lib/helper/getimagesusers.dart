@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+
 // ignore: must_be_immutable
 class GetImagesUsers extends StatefulWidget {
   String userName;
@@ -17,7 +18,7 @@ class _GetImagesUsersState extends State<GetImagesUsers> {
 
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
 
   @override
   void initState() {
@@ -26,16 +27,17 @@ class _GetImagesUsersState extends State<GetImagesUsers> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser;
     return FutureBuilder(
       
-      future: FirebaseAuth.instance.currentUser(),
+      
       builder: (ctx, futureSnapshot) {
         if (futureSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -45,11 +47,11 @@ class _GetImagesUsersState extends State<GetImagesUsers> {
         return StreamBuilder(
           
           //snapshot allows the stream to happen we set up a screen
-          stream: Firestore.instance
+          stream: FirebaseFirestore.instance
               .collection('users')
               .where('userName', isEqualTo: widget.userName)
               .snapshots(),
-          // ignore: missing_return
+          
           builder: (ctx, profileSnapshot) {
             
             if (profileSnapshot.connectionState == ConnectionState.waiting) {
@@ -59,7 +61,7 @@ class _GetImagesUsersState extends State<GetImagesUsers> {
             }
 
             final profileDocs =
-                profileSnapshot.data.documents[0].data['image_url'];
+                profileSnapshot.data.documents[0].data()['image_url'];
             
             if (profileDocs != null) {
               return Image.network(profileDocs, fit: BoxFit.fill,

@@ -24,6 +24,7 @@ class _CreateBlogState extends State<CreateBlog> {
   CrudMethods crudMethods = new CrudMethods();
 
   Future getImage() async {
+   
     // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -39,14 +40,14 @@ class _CreateBlogState extends State<CreateBlog> {
       });
 
       ///upload image to firestore
-      StorageReference firebaseStorageRef = FirebaseStorage.instance
+      Reference firebaseStorageRef = FirebaseStorage.instance
           .ref()
           .child('blogImages')
           .child('${randomAlphaNumeric(9)}.jpg');
 
-      final StorageUploadTask task = firebaseStorageRef.putFile(selectedImage);
-
-      var downloadUrl = await (await task.onComplete).ref.getDownloadURL();
+      final UploadTask task = firebaseStorageRef.putFile(selectedImage);
+      //MIGHT CAUSE ERROR onComplete
+      var downloadUrl = await (await task).ref.getDownloadURL();
       print('$downloadUrl');
       Map<String, dynamic> blogMap = {
         "authorName": authorName,

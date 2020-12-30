@@ -42,11 +42,11 @@ class _SearchState extends State<Search> {
     return haveUserSearched
         ? ListView.builder(
             shrinkWrap: true,
-            itemCount: searchResultSnapshot.documents.length,
+            itemCount: searchResultSnapshot.docs.length,
             itemBuilder: (context, index) {
               return userTile(
-                searchResultSnapshot.documents[index].data["userName"],
-                searchResultSnapshot.documents[index].data["userEmail"],
+                searchResultSnapshot.docs[index].data()["userName"],
+                searchResultSnapshot.docs[index].data()["userEmail"],
               );
             })
         : Container();

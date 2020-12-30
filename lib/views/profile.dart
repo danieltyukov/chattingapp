@@ -16,11 +16,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // ignore: unused_field
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
   File _image;
 
   @override
@@ -30,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
@@ -49,12 +48,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Future uploadPic(BuildContext context) async {
       // String fileName = basename(_image.path);
-      StorageReference firebaseStorageRef = FirebaseStorage.instance
+      Reference firebaseStorageRef = FirebaseStorage.instance
           .ref()
           .child('user_image')
           .child(user.uid + '.jpg');
-      StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+      UploadTask uploadTask = firebaseStorageRef.putFile(_image);
+      //MIGHT CAUSE AN ERROR
+      TaskSnapshot taskSnapshot = await uploadTask;
       final url = await taskSnapshot.ref.getDownloadURL();
       databaseMethods.addImage(url, user.uid);
 

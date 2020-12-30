@@ -56,6 +56,6 @@
     <string name="msg_no_selected">선택된 이미지가 없습니다.</string>
     <string name="msg_permission">권한이 거부 됐습니다.</string>
     <string msgid="146198913615257606" name="search_menu_title">"검색"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="str_all_view">전체사진</string>
 </resources>

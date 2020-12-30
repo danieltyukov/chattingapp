@@ -15,11 +15,11 @@ class MainProfilePage extends StatefulWidget {
 }
 
 class _MainProfilePageState extends State<MainProfilePage> {
-  // ignore: unused_field
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  FirebaseUser user;
+  User user;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _MainProfilePageState extends State<MainProfilePage> {
   }
 
   initUser() async {
-    user = await _auth.currentUser();
+    user = await _auth.currentUser;
 
     setState(() {});
   }
