@@ -1,6 +1,6 @@
-# aspireapp
+# chattingapp
 
-A new Flutter project.
+⚡ Open source full scale chatting application with group and main point of discussion features
 
 ## Getting Started
 
