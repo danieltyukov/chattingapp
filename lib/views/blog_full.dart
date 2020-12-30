@@ -1,4 +1,4 @@
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 
@@ -29,7 +29,7 @@ class _FullBlogState extends State<FullBlog> {
           title: Row(
             children: [
               Text(
-                'Aspire',
+                'Chat',
                 style: TextStyle(fontSize: 22),
               ),
               Text(

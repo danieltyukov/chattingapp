@@ -1,4 +1,4 @@
-import 'package:aspireapp/widget/drawer.dart';
+import 'package:chattingapp/widget/drawer.dart';
 import 'package:flutter/material.dart';
 //this page is for people to write personal
 //suggestions,errors,reports

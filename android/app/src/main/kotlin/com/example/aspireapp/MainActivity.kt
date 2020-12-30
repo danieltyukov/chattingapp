@@ -1,4 +1,4 @@
-package com.example.aspireapp
+package com.example.chattingapp
 
 import io.flutter.embedding.android.FlutterActivity
 

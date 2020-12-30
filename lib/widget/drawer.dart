@@ -1,9 +1,9 @@
-import 'package:aspireapp/views/blog_home.dart';
-import 'package:aspireapp/views/chatrooms.dart';
-import 'package:aspireapp/views/grouppage.dart';
-import 'package:aspireapp/views/profiledisplay.dart';
-import 'package:aspireapp/views/report.dart';
-import 'package:aspireapp/views/snake.dart';
+import 'package:chattingapp/views/blog_home.dart';
+import 'package:chattingapp/views/chatrooms.dart';
+import 'package:chattingapp/views/grouppage.dart';
+import 'package:chattingapp/views/profiledisplay.dart';
+import 'package:chattingapp/views/report.dart';
+import 'package:chattingapp/views/snake.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ Widget drawer(BuildContext context) {
             color: Color(0xff0C1C3E),
           ),
           child: Image.asset(
-            "assets/images/aspirelogo.png",
+            "assets/images/chatapplogo.png",
             height: 200,
           ),
         ),

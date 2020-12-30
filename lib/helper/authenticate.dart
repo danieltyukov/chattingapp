@@ -1,5 +1,5 @@
-import 'package:aspireapp/views/signin.dart';
-import 'package:aspireapp/views/signup.dart';
+import 'package:chattingapp/views/signin.dart';
+import 'package:chattingapp/views/signup.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {

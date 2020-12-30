@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/snake.dart';
-import 'package:aspireapp/widget/drawer.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/snake.dart';
+import 'package:chattingapp/widget/drawer.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -67,7 +67,7 @@ class HomeScreenState extends State<HomeScreen> {
           title: Row(
             children: [
               Text(
-                'Aspire',
+                'Chat',
                 style: TextStyle(fontSize: 22),
               ),
               Text(
@@ -100,7 +100,8 @@ class HomeScreenState extends State<HomeScreen> {
                 } else {
                   // get my threads
                   List threads = (snapshot.data.documents as List).where((t) {
-                    return t.data()['users']
+                    return t
+                        .data()['users']
                         .any((u) => u.documentID == Constants.myName);
                   }).toList();
 
@@ -273,7 +274,6 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                     showDialog(
                         context: context,
                         barrierDismissible: true,
-                        
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Delete Group Chat?'),
@@ -289,13 +289,11 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                               FlatButton(
                                 child: Text('Yes'),
                                 onPressed: () async {
-                                  await FirebaseFirestore.instance.runTransaction(
-                                      (Transaction myTransaction) async {
-                                     myTransaction.delete(widget
-                                        .snapshot
-                                        .data
-                                        .documents[widget.index]
-                                        .reference);
+                                  await FirebaseFirestore.instance
+                                      .runTransaction(
+                                          (Transaction myTransaction) async {
+                                    myTransaction.delete(widget.snapshot.data
+                                        .documents[widget.index].reference);
                                   });
                                   Navigator.pop(context);
                                 },

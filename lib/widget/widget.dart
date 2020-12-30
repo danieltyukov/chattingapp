@@ -5,7 +5,7 @@ Widget appBarMain(BuildContext context) {
     title: Row(
             children: [
               Text(
-                'Aspire',
+                'Chat',
                 style: TextStyle(fontSize: 22),
               ),
               Text(

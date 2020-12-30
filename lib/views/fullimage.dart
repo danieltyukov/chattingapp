@@ -1,7 +1,6 @@
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
-
 
 class FullImage extends StatefulWidget {
   final String image;

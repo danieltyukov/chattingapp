@@ -1,6 +1,6 @@
-import 'package:aspireapp/services/auth.dart';
-import 'package:aspireapp/widget/offline.dart';
-import 'package:aspireapp/widget/widget.dart';
+import 'package:chattingapp/services/auth.dart';
+import 'package:chattingapp/widget/offline.dart';
+import 'package:chattingapp/widget/widget.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -40,7 +40,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(val);
                   final hasData = val.isNotEmpty;
-                  final aspireVal = val.contains('aspire');
+                  final aspireVal = val.contains('gmail');
                   if (regResult && hasData && aspireVal) {
                     return null;
                   } else {

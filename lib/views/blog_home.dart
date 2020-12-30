@@ -1,9 +1,9 @@
-import 'package:aspireapp/services/crud.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/blog_create.dart';
-import 'package:aspireapp/views/blog_full.dart';
-import 'package:aspireapp/widget/drawer.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/services/crud.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/blog_create.dart';
+import 'package:chattingapp/views/blog_full.dart';
+import 'package:chattingapp/widget/drawer.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,13 +57,14 @@ class _BlogHomePageState extends State<BlogHomePage> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return BlogsTile(
-                            authorName: snapshot
-                                .data.documents[index].data()["authorName"],
-                            title: snapshot.data.documents[index].data()["title"],
+                            authorName: snapshot.data.documents[index]
+                                .data()["authorName"],
+                            title:
+                                snapshot.data.documents[index].data()["title"],
                             description:
                                 snapshot.data.documents[index].data()["desc"],
-                            imgUrl:
-                                snapshot.data.documents[index].data()["imageUrl"],
+                            imgUrl: snapshot.data.documents[index]
+                                .data()["imageUrl"],
                             index: index,
                             snapshot: snapshot,
                             user: user,
@@ -110,7 +111,7 @@ class _BlogHomePageState extends State<BlogHomePage> {
             title: Row(
               children: [
                 Text(
-                  'Aspire',
+                  'Chat',
                   style: TextStyle(fontSize: 22),
                 ),
                 Text(
@@ -130,8 +131,8 @@ class _BlogHomePageState extends State<BlogHomePage> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton:
-              '${user?.email}' == 'principal@aspireschool.ac.cy' ||
-                      '${user?.email}' == 'daniel.tyu@aspireschool.com'
+              
+                      '${user?.email}' == 'tyukovdaniel@gmail.com'
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: FloatingActionButton(
@@ -157,21 +158,20 @@ class BlogsTile extends StatelessWidget {
   final AsyncSnapshot<dynamic> snapshot;
   final int index;
   dynamic user;
-  BlogsTile({
-    @required this.authorName,
-    @required this.description,
-    @required this.imgUrl,
-    @required this.title,
-    @required this.snapshot,
-    @required this.index,
-    @required this.user
-  });
+  BlogsTile(
+      {@required this.authorName,
+      @required this.description,
+      @required this.imgUrl,
+      @required this.title,
+      @required this.snapshot,
+      @required this.index,
+      @required this.user});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: '${user?.email}' == 'principal@aspireschool.ac.cy' ||
-              '${user?.email}' == 'daniel.tyu@aspireschool.com'
+      onLongPress: 
+              '${user?.email}' == 'tyukovdaniel@gmail.com'
           ? () {
               showDialog(
                   context: context,

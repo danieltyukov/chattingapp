@@ -1,13 +1,12 @@
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/helper/getimages.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/profile.dart';
-import 'package:aspireapp/widget/drawer.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/getimages.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/profile.dart';
+import 'package:chattingapp/widget/drawer.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
-
 
 class MainProfilePage extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class MainProfilePage extends StatefulWidget {
 }
 
 class _MainProfilePageState extends State<MainProfilePage> {
-  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseMethods databaseMethods = DatabaseMethods();
 

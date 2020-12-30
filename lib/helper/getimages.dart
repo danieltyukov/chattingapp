@@ -1,6 +1,6 @@
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/helper/theme.dart';
-import 'package:aspireapp/services/database.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/theme.dart';
+import 'package:chattingapp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

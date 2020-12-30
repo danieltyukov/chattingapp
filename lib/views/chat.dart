@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/chatrooms.dart';
-import 'package:aspireapp/views/fullimage.dart';
-import 'package:aspireapp/widget/offline.dart';
-import 'package:aspireapp/widget/widget.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/chatrooms.dart';
+import 'package:chattingapp/views/fullimage.dart';
+import 'package:chattingapp/widget/offline.dart';
+import 'package:chattingapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -177,7 +177,7 @@ class _ChatState extends State<Chat> {
             title: Row(
               children: [
                 Text(
-                  'Aspire',
+                  'Chat',
                   style: TextStyle(fontSize: 22),
                 ),
                 Text(

@@ -1,7 +1,7 @@
-import 'package:aspireapp/groups/userItem.dart';
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/views/groupchat.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/groups/userItem.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/views/groupchat.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import '../groups/loading_stack.dart';
@@ -42,7 +42,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
   }
 
   readLocal() async {
-    currentUserId =  _auth.currentUser;
+    currentUserId = _auth.currentUser;
   }
 
 //
@@ -168,8 +168,8 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
                   padding: EdgeInsets.all(5.0),
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
-                    UserModel userZ =
-                        UserModel.fromJson(snapshot.data.documents[index].data());
+                    UserModel userZ = UserModel.fromJson(
+                        snapshot.data.documents[index].data());
                     if (userZ.userName == Constants.myName) {
                       curentUserModel = userZ;
                       return SizedBox();

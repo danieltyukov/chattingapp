@@ -1,16 +1,16 @@
-import 'package:aspireapp/helper/authenticate.dart';
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/helper/getimagesusers.dart';
-import 'package:aspireapp/helper/helperfunctions.dart';
-import 'package:aspireapp/helper/theme.dart';
-import 'package:aspireapp/services/auth.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/chat.dart';
-import 'package:aspireapp/views/profile.dart';
-import 'package:aspireapp/views/profiledisplay.dart';
-import 'package:aspireapp/views/search.dart';
-import 'package:aspireapp/widget/drawer.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/helper/authenticate.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/getimagesusers.dart';
+import 'package:chattingapp/helper/helperfunctions.dart';
+import 'package:chattingapp/helper/theme.dart';
+import 'package:chattingapp/services/auth.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/chat.dart';
+import 'package:chattingapp/views/profile.dart';
+import 'package:chattingapp/views/profiledisplay.dart';
+import 'package:chattingapp/views/search.dart';
+import 'package:chattingapp/widget/drawer.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -37,7 +37,8 @@ class _ChatRoomState extends State<ChatRoom> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ChatRoomsTile(
-                    userName: snapshot.data.documents[index].data()['chatRoomId']
+                    userName: snapshot.data.documents[index]
+                        .data()['chatRoomId']
                         .toString()
                         .replaceAll("_", "")
                         .replaceAll(Constants.myName, ""),
@@ -91,7 +92,7 @@ class _ChatRoomState extends State<ChatRoom> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Aspire',
+                'Chat',
                 style: TextStyle(fontSize: 22),
               ),
               Text(
@@ -261,7 +262,6 @@ class ChatRoomsTile extends StatelessWidget {
                 showDialog(
                     context: context,
                     barrierDismissible: true,
-              
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text('Delete Chat Room?'),

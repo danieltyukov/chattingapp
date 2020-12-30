@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:aspireapp/services/crud.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/services/crud.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +24,6 @@ class _CreateBlogState extends State<CreateBlog> {
   CrudMethods crudMethods = new CrudMethods();
 
   Future getImage() async {
-   
     // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -99,7 +98,7 @@ class _CreateBlogState extends State<CreateBlog> {
           title: Row(
             children: [
               Text(
-                'Aspire',
+                'Chat',
                 style: TextStyle(fontSize: 22),
               ),
               Text(

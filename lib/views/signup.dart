@@ -1,10 +1,10 @@
-import 'package:aspireapp/helper/authenticate.dart';
-import 'package:aspireapp/helper/helperfunctions.dart';
-import 'package:aspireapp/services/auth.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/chatrooms.dart';
-import 'package:aspireapp/widget/offline.dart';
-import 'package:aspireapp/widget/widget.dart';
+import 'package:chattingapp/helper/authenticate.dart';
+import 'package:chattingapp/helper/helperfunctions.dart';
+import 'package:chattingapp/services/auth.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/chatrooms.dart';
+import 'package:chattingapp/widget/offline.dart';
+import 'package:chattingapp/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 
@@ -84,7 +84,7 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Aspire',
+                  'Chat',
                   style: TextStyle(fontSize: 22),
                 ),
                 Text(
@@ -151,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                             controller: emailEditingController,
                             style: simpleTextStyle(),
                             validator: (val) {
-                              final aspireVal = val.contains('aspire');
+                              final aspireVal = val.contains('gmail');
                               final regResult =
                                   RegExp(r"^[a-zA.]+@[a-zA.-]+\.[a-zA]+")
                                       .hasMatch(val);
@@ -159,11 +159,11 @@ class _SignUpState extends State<SignUp> {
                               if (regResult && hasData && aspireVal) {
                                 return null;
                               } else {
-                                return 'Has To Be Your Valid Aspire Email';
+                                return 'Has To Be Your Valid Gmail Email';
                               }
                             },
                             decoration:
-                                textFieldInputDecoration("Aspire Email"),
+                                textFieldInputDecoration("Gmail Email"),
                           ),
                           TextFormField(
                             obscureText: true,

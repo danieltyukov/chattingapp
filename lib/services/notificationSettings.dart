@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:aspireapp/groups/userModel.dart';
-import 'package:aspireapp/views/groupchat.dart';
-import 'package:aspireapp/views/grouppage.dart';
+import 'package:chattingapp/groups/userModel.dart';
+import 'package:chattingapp/views/groupchat.dart';
+import 'package:chattingapp/views/grouppage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';

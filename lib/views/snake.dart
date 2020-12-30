@@ -1,4 +1,4 @@
-import 'package:aspireapp/widget/drawer.dart';
+import 'package:chattingapp/widget/drawer.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
@@ -128,7 +128,7 @@ class _SnakeGameState extends State<SnakeGame> {
         title: Row(
           children: [
             Text(
-              'Aspire',
+              'Chat',
               style: TextStyle(fontSize: 22),
             ),
             Text(

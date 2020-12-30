@@ -1,8 +1,8 @@
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/chat.dart';
-import 'package:aspireapp/widget/offline.dart';
-import 'package:aspireapp/widget/widget.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/chat.dart';
+import 'package:chattingapp/widget/offline.dart';
+import 'package:chattingapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';

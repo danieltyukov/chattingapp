@@ -1,6 +1,6 @@
-import 'package:aspireapp/helper/authenticate.dart';
-import 'package:aspireapp/helper/helperfunctions.dart';
-import 'package:aspireapp/views/chatrooms.dart';
+import 'package:chattingapp/helper/authenticate.dart';
+import 'package:chattingapp/helper/helperfunctions.dart';
+import 'package:chattingapp/views/chatrooms.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     ]);
 
     return MaterialApp(
-      title: 'AspireApp',
+      title: 'chattingapp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xff0C1C3E),

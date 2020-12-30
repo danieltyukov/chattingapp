@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:aspireapp/helper/constants.dart';
-import 'package:aspireapp/views/grouppage.dart';
-import 'package:aspireapp/widget/offline.dart';
+import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/views/grouppage.dart';
+import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -97,7 +97,6 @@ class ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    
     doSomeAsyncStuff();
 
     readLocal();

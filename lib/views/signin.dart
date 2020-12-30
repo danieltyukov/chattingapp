@@ -1,10 +1,10 @@
-import 'package:aspireapp/helper/helperfunctions.dart';
-import 'package:aspireapp/services/auth.dart';
-import 'package:aspireapp/services/database.dart';
-import 'package:aspireapp/views/chatrooms.dart';
-import 'package:aspireapp/views/forgot_password.dart';
-import 'package:aspireapp/widget/offline.dart';
-import 'package:aspireapp/widget/widget.dart';
+import 'package:chattingapp/helper/helperfunctions.dart';
+import 'package:chattingapp/services/auth.dart';
+import 'package:chattingapp/services/database.dart';
+import 'package:chattingapp/views/chatrooms.dart';
+import 'package:chattingapp/views/forgot_password.dart';
+import 'package:chattingapp/widget/offline.dart';
+import 'package:chattingapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -81,7 +81,7 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Aspire',
+                    'Chat',
                     style: TextStyle(fontSize: 22),
                   ),
                   Text(
