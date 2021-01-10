@@ -78,9 +78,7 @@ class _MessageItemState extends State<MessageItem> {
                   // Sticker
                   : null
 
-          // widget.document['type'] == 3
-          //     ? _voiceContainer(widget.document['content'], widget.document['recorderTime'])
-          //     : _stickerWidget(),
+          
         ],
         mainAxisAlignment: MainAxisAlignment.end,
       );
@@ -121,12 +119,7 @@ class _MessageItemState extends State<MessageItem> {
               : Container(),
           Row(
             children: <Widget>[
-              // isLastMessageLeft(widget.index)
-              // ? _userPhoto()
-              // :
-              // Container(width: 43.0), // 35 width of photo + 8 of margin
-
-              //  show text or image
+              
               _showFriendContent(),
             ],
           ),
@@ -179,6 +172,7 @@ class _MessageItemState extends State<MessageItem> {
         ),
         itemCount: images.length > 4 ? 4 : images.length,
         itemBuilder: (BuildContext context, int index) {
+
           return _buildImgItem(index: index, images: images, size: _imgSize);
         },
       ),

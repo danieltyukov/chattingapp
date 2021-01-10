@@ -17,8 +17,10 @@ class LoadingStack extends StatelessWidget {
               ? Container(
                   child: Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor),
-                    ),
+
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor)),
+
                   ),
                   color: Colors.white.withOpacity(0.8),
                 )

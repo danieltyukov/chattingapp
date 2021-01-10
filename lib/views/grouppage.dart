@@ -91,7 +91,10 @@ class HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor),
+
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          CustomTheme.primaryColor),
+
                     ),
                   );
                 } else {

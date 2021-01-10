@@ -48,8 +48,9 @@ class GroupChat extends StatelessWidget {
           ),
           title: Text(
             '$threadName',
-            style: TextStyle(
-                color: CustomTheme.thirdColor, fontWeight: FontWeight.bold),
+
+            style: TextStyle(color: CustomTheme.thirdColor, fontWeight: FontWeight.bold),
+
           ),
           centerTitle: true,
         ),
@@ -75,18 +76,14 @@ class ChatScreenState extends State<ChatScreen> {
   String threadId;
   UserModel selectedUser;
   String currentUserId;
-  // String currentUserPhoto;
+
   String currentUserName;
-  // bool _isRecording = false;
-  // String _path;
-  // StreamSubscription _recorderSubscription;
-  // StreamSubscription _dbPeakSubscription;
+
   var listMessage;
-  // SharedPreferences prefs;
+ 
   bool isLoading = false;
   String imageUrl = '';
-  // String recordUrl = '';
-  // String _recorderTxt = '00:00:00';
+
   String error;
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
@@ -126,7 +123,7 @@ class ChatScreenState extends State<ChatScreen> {
     currentUserId = user.uid;
     print('please print $currentUserId');
     print(selectedUser);
-    // currentUserPhoto = prefs.getString('image_url');
+
     currentUserName = Constants.myName;
 
     imageServices = ImageServices(
@@ -135,7 +132,6 @@ class ChatScreenState extends State<ChatScreen> {
       currentUserId: currentUserId,
       currentUserName: currentUserName,
     );
-    // currentUserPhoto: currentUserPhoto);
     setState(() {});
   }
 
@@ -161,8 +157,9 @@ class ChatScreenState extends State<ChatScreen> {
                   child: FlatButton(
                       child: Text(
                         "Gallery",
-                        style: TextStyle(
-                            fontSize: 15.0, color: CustomTheme.textColorOther),
+
+                        style: TextStyle(fontSize: 15.0, color: CustomTheme.textColorOther),
+
                       ),
                       onPressed: () async {
                         _selectMultibleImage(
@@ -174,8 +171,9 @@ class ChatScreenState extends State<ChatScreen> {
                   child: FlatButton(
                       child: Text(
                         "Back",
-                        style: TextStyle(
-                            fontSize: 15.0, color: CustomTheme.textColorOther),
+
+                        style: TextStyle(fontSize: 15.0, color: CustomTheme.textColorOther),
+
                       ),
                       onPressed: () async {
                         Navigator.pop(context);

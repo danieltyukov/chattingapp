@@ -32,7 +32,7 @@ class DatabaseMethods {
   }
 
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
-    return FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
         .set(chatRoom)
@@ -51,7 +51,7 @@ class DatabaseMethods {
   }
 
   Future<void> addMessage(String chatRoomId, chatMessageData) {
-    return FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
         .collection("chats")
@@ -95,11 +95,8 @@ class DatabaseMethods {
         .doc(chatRoomId)
         .collection(userName)
         .doc(userName)
-        .set(
-      <String, dynamic>{'lastMessage': lastMessage},
-      
-      SetOptions(merge : true)
-    );
+        .set(<String, dynamic>{'lastMessage': lastMessage},
+            SetOptions(merge: true));
   }
 
   Future<void> visitedTime(
@@ -110,25 +107,23 @@ class DatabaseMethods {
         .doc(chatRoomId)
         .collection(userName)
         .doc(userName)
-        .set(
-      <String, dynamic>{'lastVisited': lastVisited},
-      SetOptions(merge : true)
-    );
+        .set(<String, dynamic>{'lastVisited': lastVisited},
+            SetOptions(merge: true));
   }
 
   Future<void> addImage(String url, dynamic user) async {
     print(user);
-    await FirebaseFirestore.instance.collection('users').doc(user).set(
-      <String, String>{'image_url': url},
-      SetOptions(merge : true)
-    );
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user)
+        .set(<String, String>{'image_url': url}, SetOptions(merge: true));
   }
 
   Future<void> groupImageChange(String url, dynamic threadId) async {
-    await FirebaseFirestore.instance.collection('threads').doc(threadId).set(
-      <String, String>{'photoUrl': url},
-      SetOptions(merge : true)
-    );
+    await FirebaseFirestore.instance
+        .collection('threads')
+        .doc(threadId)
+        .set(<String, String>{'photoUrl': url}, SetOptions(merge: true));
   }
 
   Future<void> publishImage(String chatRoomId, chatMessageData) async {
@@ -155,10 +150,7 @@ class DatabaseMethods {
     return FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
-        .set(
-      <String, dynamic>{'timer': timestamp},
-      SetOptions(merge : true)
-    );
+        .set(<String, dynamic>{'timer': timestamp}, SetOptions(merge: true));
   }
 
   Future<bool> usernameCheck(String username) async {

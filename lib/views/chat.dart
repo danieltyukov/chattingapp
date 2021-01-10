@@ -497,16 +497,7 @@ class MessageTile extends StatelessWidget {
                                 if (imageId == null) {
                                   return;
                                 }
-                                //FOR FUTURE REFERENCE
-                                // // Below is a method of obtaining saved image information.
-                                // var fileName =
-                                //     await ImageDownloader.findName(imageId);
-                                // var path =
-                                //     await ImageDownloader.findPath(imageId);
-                                // var size =
-                                //     await ImageDownloader.findByteSize(imageId);
-                                // var mimeType =
-                                //     await ImageDownloader.findMimeType(imageId);
+                                
 
                               } on PlatformException catch (error) {
                                 print(error);
@@ -540,7 +531,8 @@ class MessageTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                         gradient: LinearGradient(
                           colors: sendByMe
-                              ? [CustomTheme.textColorOther, CustomTheme.textColor]
+
+                              ? [CustomTheme.textColorOther, CustomTheme.textColorOther]
                               : [CustomTheme.primaryColor, CustomTheme.primaryColor],
                         )),
                     child: Linkify(
@@ -582,11 +574,6 @@ class MessageTile extends StatelessWidget {
                     child: Container(
                       width: 200,
                       height: 200,
-                      // margin: sendByMe
-                      //     ? EdgeInsets.only(
-                      //         left: 180,
-                      //       )
-                      //     : EdgeInsets.only(right: 180),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
