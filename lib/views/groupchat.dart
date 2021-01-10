@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/theme.dart';
 import 'package:chattingapp/views/grouppage.dart';
 import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../groups/colors.dart';
 import '../groups/messageItem.dart';
 import '../groups/userModel.dart';
 import '../groups/imageService.dart';
@@ -48,7 +48,8 @@ class GroupChat extends StatelessWidget {
           ),
           title: Text(
             '$threadName',
-            style: TextStyle(color: thirdColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: CustomTheme.thirdColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
@@ -153,14 +154,15 @@ class ChatScreenState extends State<ChatScreen> {
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
-                        color: primaryColor),
+                        color: CustomTheme.primaryColor),
                   ),
                 ),
                 Expanded(
                   child: FlatButton(
                       child: Text(
                         "Gallery",
-                        style: TextStyle(fontSize: 15.0, color: textColor),
+                        style: TextStyle(
+                            fontSize: 15.0, color: CustomTheme.textColorOther),
                       ),
                       onPressed: () async {
                         _selectMultibleImage(
@@ -172,7 +174,8 @@ class ChatScreenState extends State<ChatScreen> {
                   child: FlatButton(
                       child: Text(
                         "Back",
-                        style: TextStyle(fontSize: 15.0, color: textColor),
+                        style: TextStyle(
+                            fontSize: 15.0, color: CustomTheme.textColorOther),
                       ),
                       onPressed: () async {
                         Navigator.pop(context);
@@ -196,26 +199,6 @@ class ChatScreenState extends State<ChatScreen> {
       Fluttertoast.showToast(msg: 'Upload image faild');
     }
   }
-
-  // Future<bool> onBackPress() {
-  //   if (isShowSticker) {
-  //     setState(() {
-  //       isShowSticker = false;
-  //     });
-  //   } else {
-  //     // // Firestore.instance
-  //     // //     .collection('users')
-  //     // //     .document(currentUserId)
-  //     // //     .updateData({'chattingWith': null});
-  //     // // Navigator.pop(context);
-  //     // // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-  //     // Navigator.popUntil(context, (route) {
-  //     //   return route.settings.isInitialRoute;
-  //     // });
-  //   }
-
-  //   return Future.value(false);
-  // }
 
   void onSendMessage({var content, int type}) {
     // type: 0 = text, 1 = image, 2 = sticker, 3 = record
@@ -242,28 +225,20 @@ class ChatScreenState extends State<ChatScreen> {
             'images': type == 1 ? content : [],
             'type': type,
             'nameFrom': currentUserName,
-            // 'photoFrom': currentUserPhoto,
-            // 'recorderTime': type == 3 ? recorderTime : ''
           },
         );
       });
 
-      FirebaseFirestore.instance.collection('threads').doc(threadId).update({
-        'lastMessage': type == 0
-            ? content
-            : type == 1
-                ? 'photo'
-                : null,
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-        //         type == 2
-        //             ? 'sticker'
-        //             : 'audio',
-        // 'lastMessageTime': timeStamp
-        //Firestore.instance.collection('messages').document(widget.threadId).collection(widget.threadId).document(timeStamp)
-      });
-
-      // listScrollController.animateTo(0.0,
-      //     duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      FirebaseFirestore.instance.collection('threads').doc(threadId).update(
+        {
+          'lastMessage': type == 0
+              ? content
+              : type == 1
+                  ? 'photo'
+                  : null,
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+        },
+      );
     }
   }
 
@@ -292,7 +267,7 @@ class ChatScreenState extends State<ChatScreen> {
           ? Container(
               child: Center(
                 child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(primaryColor)),
+                    valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor)),
               ),
               color: Colors.white.withOpacity(0.8),
             )
@@ -306,7 +281,7 @@ class ChatScreenState extends State<ChatScreen> {
           ? Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  primaryColor,
+                  CustomTheme.primaryColor,
                 ),
               ),
             )
@@ -323,7 +298,7 @@ class ChatScreenState extends State<ChatScreen> {
                   return Center(
                       child: CircularProgressIndicator(
                           valueColor:
-                              AlwaysStoppedAnimation<Color>(primaryColor)));
+                              AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor)));
                 } else {
                   listMessage = snapshot.data.documents;
                   return ListView.builder(
@@ -350,7 +325,7 @@ class ChatScreenState extends State<ChatScreen> {
         width: double.infinity,
         height: 50.0,
         decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: textColor, width: 0.5)),
+            border: Border(top: BorderSide(color: CustomTheme.textColorOther, width: 0.5)),
             color: Color(0x54FFFFFF)),
         child: Stack(
           children: <Widget>[

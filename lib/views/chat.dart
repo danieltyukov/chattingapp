@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/theme.dart';
 import 'package:chattingapp/services/database.dart';
 import 'package:chattingapp/views/chatrooms.dart';
 import 'package:chattingapp/views/fullimage.dart';
@@ -17,7 +18,6 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../groups/colors.dart';
 
 class Chat extends StatefulWidget {
   final String chatRoomId;
@@ -246,7 +246,7 @@ class _ChatState extends State<Chat> {
                                                 style: TextStyle(
                                                     fontSize: 20.0,
                                                     fontWeight: FontWeight.bold,
-                                                    color: primaryColor),
+                                                    color: CustomTheme.primaryColor),
                                               ),
                                             ),
                                             Expanded(
@@ -255,7 +255,7 @@ class _ChatState extends State<Chat> {
                                                     "Gallery",
                                                     style: TextStyle(
                                                         fontSize: 15.0,
-                                                        color: textColor),
+                                                        color: CustomTheme.textColorOther),
                                                   ),
                                                   onPressed: () async {
                                                     await getImage()
@@ -271,7 +271,7 @@ class _ChatState extends State<Chat> {
                                                     "Back",
                                                     style: TextStyle(
                                                         fontSize: 15.0,
-                                                        color: textColor),
+                                                        color: CustomTheme.textColorOther),
                                                   ),
                                                   onPressed: () async {
                                                     Navigator.pop(context);
@@ -311,9 +311,6 @@ class _ChatState extends State<Chat> {
                             ),
                           ),
                         )),
-                        // SizedBox(
-                        //   width: 16,
-                        // ),
                         GestureDetector(
                           onTap: () {
                             Timer(
@@ -324,28 +321,11 @@ class _ChatState extends State<Chat> {
                             addMessage();
                           },
                           child: Container(
-                            // height: 40,
-                            // width: 40,
-                            // decoration: BoxDecoration(
-                            //     gradient: LinearGradient(
-                            //         colors: [
-                            //           const Color(0x36FFFFFF),
-                            //           const Color(0x0FFFFFFF)
-                            //         ],
-                            //         begin: FractionalOffset.topLeft,
-                            //         end: FractionalOffset.bottomRight),
-                            //     borderRadius: BorderRadius.circular(40)),
-                            // padding: EdgeInsets.all(12),
                             margin: EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Icons.send,
                               color: Colors.white,
                             ),
-                            // child: Image.asset(
-                            //   "assets/images/send.png",
-                            //   height: 25,
-                            //   width: 25,
-                            // ),
                           ),
                         ),
                       ],
@@ -394,7 +374,7 @@ class MessageTile extends StatelessWidget {
               : Text(
                   '$sendBy',
                   style: TextStyle(
-                      color: textColor,
+                      color: CustomTheme.textColorOther,
                       fontSize: 12.0,
                       fontStyle: FontStyle.italic),
                 ),
@@ -560,8 +540,8 @@ class MessageTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                         gradient: LinearGradient(
                           colors: sendByMe
-                              ? [textColor, textColor]
-                              : [primaryColor, primaryColor],
+                              ? [CustomTheme.textColorOther, CustomTheme.textColor]
+                              : [CustomTheme.primaryColor, CustomTheme.primaryColor],
                         )),
                     child: Linkify(
                         onOpen: (link) async {

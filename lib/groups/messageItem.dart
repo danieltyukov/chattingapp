@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chattingapp/helper/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -8,8 +9,6 @@ import 'fullPhoto.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
-
-import 'colors.dart';
 
 class MessageItem extends StatefulWidget {
   MessageItem({
@@ -56,98 +55,6 @@ class _MessageItemState extends State<MessageItem> {
     return false;
   }
 
-  // void startPlayer(String recordUrl) async {
-  //   try {
-  //     String path =
-  //         await widget.flutterSound.startPlayer(recordUrl); // From file
-
-  //     if (path == null) {
-  //       print('Error starting player');
-  //       return;
-  //     }
-  //     print('startPlayer: $path');
-  //     await widget.flutterSound.setVolume(1.0);
-
-  //     _playerSubscription =
-  //         widget.flutterSound.onPlayerStateChanged.listen((e) {
-  //       if (e != null) {
-  //         sliderCurrentPosition = e.currentPosition;
-  //         maxDuration = e.duration;
-
-  //         DateTime date = new DateTime.fromMillisecondsSinceEpoch(
-  //             e.currentPosition.toInt(),
-  //             isUtc: true);
-  //         String txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
-  //         this.setState(() {
-  //           this.playerTxt = txt.substring(0, 8);
-  //         });
-  //       }
-  //     });
-  //   } catch (err) {
-  //     print('error: $err');
-  //   }
-  //   // setState(() {});
-  // }
-
-  // void stopPlayer() async {
-  //   try {
-  //     String result = await widget.flutterSound.stopPlayer();
-  //     print('stopPlayer: $result');
-  //     if (_playerSubscription != null) {
-  //       _playerSubscription.cancel();
-  //       _playerSubscription = null;
-  //     }
-  //     this.setState(() {
-  //       sliderCurrentPosition = 0.0;
-  //     });
-  //   } catch (err) {
-  //     print('error: $err');
-  //   }
-  // }
-
-  // void pausePlayer() async {
-  //   String result;
-  //   try {
-  //     if (widget.flutterSound.audioState == t_AUDIO_STATE.IS_PAUSED) {
-  //       result = await widget.flutterSound.resumePlayer();
-  //       print('resumePlayer: $result');
-  //     } else {
-  //       result = await widget.flutterSound.pausePlayer();
-  //       print('pausePlayer: $result');
-  //     }
-  //   } catch (err) {
-  //     print('error: $err');
-  //   }
-  //   setState(() {});
-  // }
-
-  // void seekToPlayer(int milliSecs) async {
-  //   if (widget.flutterSound.audioState == t_AUDIO_STATE.IS_PLAYING) {
-  //     await widget.flutterSound.seekToPlayer(milliSecs);
-  //     // print('seekToPlayer: $result');
-  //   }
-  // }
-
-  // onPausePlayerPressed() {
-  //   return widget.flutterSound.audioState == t_AUDIO_STATE.IS_PLAYING ||
-  //           widget.flutterSound.audioState == t_AUDIO_STATE.IS_PAUSED
-  //       ? pausePlayer()
-  //       : null;
-  // }
-
-  // onStopPlayerPressed() {
-  //   return widget.flutterSound.audioState == t_AUDIO_STATE.IS_PLAYING ||
-  //           widget.flutterSound.audioState == t_AUDIO_STATE.IS_PAUSED
-  //       ? stopPlayer()
-  //       : null;
-  // }
-
-  // onStartPlayerPressed(String voiceUrl) {
-  //   if (voiceUrl == null) return null;
-  //   return widget.flutterSound.audioState == t_AUDIO_STATE.IS_STOPPED
-  //       ? startPlayer(voiceUrl)
-  //       : pausePlayer();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +71,7 @@ class _MessageItemState extends State<MessageItem> {
         children: <Widget>[
           // Text
           widget.document['type'] == 0
-              ? _textWidget(color: textColor)
+              ? _textWidget(color: CustomTheme.textColorOther)
               : widget.document['type'] == 1
                   // Image
                   ? _imagesWidget()
@@ -189,7 +96,7 @@ class _MessageItemState extends State<MessageItem> {
                       Text(
                         '${widget.document['nameFrom']}',
                         style: TextStyle(
-                            color: textColor,
+                            color: CustomTheme.textColorOther,
                             fontSize: 12.0,
                             fontStyle: FontStyle.italic),
                       ),
@@ -205,7 +112,7 @@ class _MessageItemState extends State<MessageItem> {
                           ),
                         ),
                         style: TextStyle(
-                            color: textColor,
+                            color: CustomTheme.textColorOther,
                             fontSize: 12.0,
                             fontStyle: FontStyle.italic),
                       ),
@@ -251,37 +158,11 @@ class _MessageItemState extends State<MessageItem> {
           style: TextStyle(color: Colors.white),
         ),
         decoration: BoxDecoration(
-            color: color ?? primaryColor,
+            color: color ?? CustomTheme.primaryColor,
             borderRadius: BorderRadius.circular(8.0)),
       ),
     );
   }
-
-  // _userPhoto() {
-  //   return Container(
-  //     margin: EdgeInsets.only(right: 8.0),
-  //     child: Material(
-  //       child: CachedNetworkImage(
-  //         placeholder: (context, url) => Container(
-  //           child: CircularProgressIndicator(
-  //             strokeWidth: 1.0,
-  //             valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-  //           ),
-  //           // width: 35.0,
-  //           // height: 35.0,
-  //         ),
-  //         // imageUrl: widget.document['photoFrom'],
-  //         width: 35.0,
-  //         height: 35.0,
-  //         fit: BoxFit.cover,
-  //       ),
-  //       borderRadius: BorderRadius.all(
-  //         Radius.circular(18.0),
-  //       ),
-  //       clipBehavior: Clip.hardEdge,
-  //     ),
-  //   );
-  // }
 
   _imagesWidget() {
     double _containerSize = 200.0;
@@ -298,29 +179,6 @@ class _MessageItemState extends State<MessageItem> {
         ),
         itemCount: images.length > 4 ? 4 : images.length,
         itemBuilder: (BuildContext context, int index) {
-          // if (images.length > 4 && index == 3) {
-          //   return InkWell(
-          //     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (context) =>
-          //             FullPhoto(images: images, index: index))),
-          //     child: Container(
-          //       height: _imgSize,
-          //       width: _imgSize,
-          //       margin: EdgeInsets.all(5.0),
-          //       decoration: BoxDecoration(
-          //           color: Colors.grey.shade600,
-          //           borderRadius: BorderRadius.circular(5.0)),
-          //       child: Center(
-          //         child: Text(
-          //           '+${images.length - 3}',
-          //           style: TextStyle(color: Colors.white, fontSize: 25.0),
-          //         ),
-          //       ),
-          //     ),
-          //   );
-          // } else if (images.length > 4 && index > 3) {
-          //   return SizedBox();
-          // }
           return _buildImgItem(index: index, images: images, size: _imgSize);
         },
       ),
@@ -429,7 +287,7 @@ class _MessageItemState extends State<MessageItem> {
             placeholder: (_, _url) => Container(
               child: Center(
                   child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor),
               )),
             ),
             errorWidget: (_, url, error) => Container(
@@ -450,99 +308,11 @@ class _MessageItemState extends State<MessageItem> {
     // id to
     if (widget.document['type'] == 0) {
       // txt
-      return _textWidget(color: primaryColor);
+      return _textWidget(color: CustomTheme.primaryColor);
     } else if (widget.document['type'] == 1) {
       //img
       return _imagesWidget();
     }
-
-    // else if (widget.document['type'] == 2) {
-    //   // stickers
-    //   return _stickerWidget();
-    // } else if (widget.document['type'] == 3) {
-    //   // record
-    //   return _voiceContainer(
-    //       widget.document['content'], widget.document['recorderTime']);
-    // }
     return Container();
   }
-
-  // _stickerWidget() {
-  //   return Container(
-  //     child: Image.asset(
-  //       'images/${widget.document['content']}.gif',
-  //       width: 100.0,
-  //       height: 100.0,
-  //       fit: BoxFit.cover,
-  //     ),
-  //   );
-  // }
-
-  // _voiceContainer(String voiceUrl, String recorderTime) {
-  //   return Container(
-  //     // width: MediaQuery.of(context).size.width * 0.55,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(8.0),
-  //       color: textColor,
-  //     ),
-  //     child: Row(
-  //       children: <Widget>[
-  //         // IconButton(
-  //         //     icon: Icon(
-  //         //       widget.flutterSound.audioState == t_AUDIO_STATE.IS_PLAYING
-  //         //           ? Icons.stop
-  //         //           : Icons.play_arrow,
-  //         //       color: Colors.white,
-  //         //       size: 35.0,
-  //         //     ),
-  //         //     onPressed: () => onStartPlayerPressed(voiceUrl)),
-  //         Container(
-  //             child: SliderTheme(
-  //           data: SliderTheme.of(context).copyWith(
-  //             activeTrackColor: thirdColor,
-  //             inactiveTrackColor: Colors.grey,
-  //             thumbColor: thirdColor,
-  //             thumbShape: RoundSliderThumbShape(
-  //               enabledThumbRadius: 7.0,
-  //             ),
-  //           ),
-  //           child: Container(
-  //             width: 250.0,
-  //             child: Column(
-  //               children: <Widget>[
-  //                 // Slider(
-  //                 //       value: sliderCurrentPosition,
-  //                 //       // inactiveColor: thirdColor,
-  //                 //       // activeColor: primaryColor,
-  //                 //       min: 0.0,
-  //                 //       max: maxDuration,
-  //                 //       onChanged: (double value) => seekToPlayer(value.toInt()),
-  //                 //       divisions: maxDuration.toInt()),
-  //                 Container(
-  //                   padding: EdgeInsets.symmetric(horizontal: 16.0),
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     children: <Widget>[
-  //                       Text(
-  //                         '$playerTxt',
-  //                         style: TextStyle(color: thirdColor),
-  //                       ),
-  //                       Text(
-  //                         '$recorderTime',
-  //                         style: TextStyle(color: thirdColor),
-  //                       )
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 SizedBox(
-  //                   height: 5.0,
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         )),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

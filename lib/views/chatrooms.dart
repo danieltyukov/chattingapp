@@ -47,7 +47,7 @@ class _ChatRoomState extends State<ChatRoom> {
                   );
                 },
               )
-            : Text("Kill your self");
+            : Container();
       },
     );
   }

@@ -38,23 +38,6 @@ class ImageServices {
     return resultList;
   }
 
-  // Future<void> requestPermission() async {
-  //   final List<PermissionGroup> iosPermissions = [
-  //     PermissionGroup.camera,
-  //     PermissionGroup.mediaLibrary,
-  //     PermissionGroup.photos
-  //   ];
-  //   final List<PermissionGroup> androidPermissions = [
-  //     PermissionGroup.camera,
-  //     PermissionGroup.storage
-  //   ];
-  //   if (Platform.isIOS) {
-  //     await PermissionHandler().requestPermissions(iosPermissions);
-  //   } else {
-  //     await PermissionHandler().requestPermissions(androidPermissions);
-  //   }
-  // }
-
   Future<List> uploadFile(List resultList) async {
     List images = await uploadIamges(resultList);
     return images;
@@ -75,9 +58,6 @@ class ImageServices {
       print('DownLoad url $url');
       _images.add(url);
     }
-    // setState(() {
-    //   isLoading = false;
-    // });
     return _images;
   }
 }
