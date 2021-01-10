@@ -55,6 +55,7 @@ class _MessageItemState extends State<MessageItem> {
     return false;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -171,7 +172,7 @@ class _MessageItemState extends State<MessageItem> {
         ),
         itemCount: images.length > 4 ? 4 : images.length,
         itemBuilder: (BuildContext context, int index) {
-        
+
           return _buildImgItem(index: index, images: images, size: _imgSize);
         },
       ),

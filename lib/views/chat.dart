@@ -311,9 +311,6 @@ class _ChatState extends State<Chat> {
                             ),
                           ),
                         )),
-                        // SizedBox(
-                        //   width: 16,
-                        // ),
                         GestureDetector(
                           onTap: () {
                             Timer(
@@ -324,28 +321,11 @@ class _ChatState extends State<Chat> {
                             addMessage();
                           },
                           child: Container(
-                            // height: 40,
-                            // width: 40,
-                            // decoration: BoxDecoration(
-                            //     gradient: LinearGradient(
-                            //         colors: [
-                            //           const Color(0x36FFFFFF),
-                            //           const Color(0x0FFFFFFF)
-                            //         ],
-                            //         begin: FractionalOffset.topLeft,
-                            //         end: FractionalOffset.bottomRight),
-                            //     borderRadius: BorderRadius.circular(40)),
-                            // padding: EdgeInsets.all(12),
                             margin: EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Icons.send,
                               color: Colors.white,
                             ),
-                            // child: Image.asset(
-                            //   "assets/images/send.png",
-                            //   height: 25,
-                            //   width: 25,
-                            // ),
                           ),
                         ),
                       ],
@@ -517,16 +497,7 @@ class MessageTile extends StatelessWidget {
                                 if (imageId == null) {
                                   return;
                                 }
-                                //FOR FUTURE REFERENCE
-                                // // Below is a method of obtaining saved image information.
-                                // var fileName =
-                                //     await ImageDownloader.findName(imageId);
-                                // var path =
-                                //     await ImageDownloader.findPath(imageId);
-                                // var size =
-                                //     await ImageDownloader.findByteSize(imageId);
-                                // var mimeType =
-                                //     await ImageDownloader.findMimeType(imageId);
+                                
 
                               } on PlatformException catch (error) {
                                 print(error);
@@ -560,6 +531,7 @@ class MessageTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                         gradient: LinearGradient(
                           colors: sendByMe
+
                               ? [CustomTheme.textColorOther, CustomTheme.textColorOther]
                               : [CustomTheme.primaryColor, CustomTheme.primaryColor],
                         )),

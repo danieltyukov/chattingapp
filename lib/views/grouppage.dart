@@ -33,8 +33,6 @@ class HomeScreenState extends State<HomeScreen> {
   dynamic snapshot;
   // List threads = [];
   bool isLoading = false;
-  // String currentUserId;
-  // var _isInit = true;
 
   @override
   void initState() {
@@ -93,8 +91,10 @@ class HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
+
                       valueColor: AlwaysStoppedAnimation<Color>(
                           CustomTheme.primaryColor),
+
                     ),
                   );
                 } else {
