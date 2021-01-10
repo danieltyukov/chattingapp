@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
 
     setState(() {});
   }

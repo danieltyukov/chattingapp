@@ -349,8 +349,7 @@ class _MessageItemState extends State<MessageItem> {
                         onPressed: () async {
                           FirebaseFirestore.instance.runTransaction(
                               (Transaction myTransaction) async {
-                            await myTransaction
-                                .delete(widget.document['images']);
+                            myTransaction.delete(widget.document['images']);
                           });
                           Navigator.pop(context);
 

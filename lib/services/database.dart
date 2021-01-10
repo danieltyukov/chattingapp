@@ -32,7 +32,7 @@ class DatabaseMethods {
   }
 
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
-    FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
         .set(chatRoom)
@@ -51,7 +51,7 @@ class DatabaseMethods {
   }
 
   Future<void> addMessage(String chatRoomId, chatMessageData) {
-    FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
         .collection("chats")

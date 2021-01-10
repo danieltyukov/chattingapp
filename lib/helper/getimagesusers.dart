@@ -26,7 +26,7 @@ class _GetImagesUsersState extends State<GetImagesUsers> {
   }
 
   initUser() async {
-    user = await _auth.currentUser;
+    user =  _auth.currentUser;
 
     setState(() {});
   }

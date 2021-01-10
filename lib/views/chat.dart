@@ -39,7 +39,7 @@ class _ChatState extends State<Chat> {
   ScrollController _scrollController = new ScrollController();
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
 
     setState(() {});
   }
@@ -416,7 +416,7 @@ class MessageTile extends StatelessWidget {
                             onPressed: () {
                               FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
-                                await myTransaction.delete(
+                                myTransaction.delete(
                                     snapshot.data.documents[index].reference);
                               });
                               Navigator.pop(context);
@@ -444,7 +444,7 @@ class MessageTile extends StatelessWidget {
                             onPressed: () {
                               FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
-                                await myTransaction.delete(
+                                myTransaction.delete(
                                     snapshot.data.documents[index].reference);
                               });
                               Navigator.pop(context);

@@ -109,7 +109,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
     setState(() {});
   }
 
@@ -231,7 +231,7 @@ class ChatScreenState extends State<ChatScreen> {
           .doc(timeStamp);
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
-        await transaction.set(
+        transaction.set(
           documentReference,
           {
             'threadId': threadId,

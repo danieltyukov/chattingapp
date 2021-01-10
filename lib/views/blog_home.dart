@@ -26,7 +26,7 @@ class _BlogHomePageState extends State<BlogHomePage> {
   User user;
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
 
     setState(() {});
   }
@@ -192,7 +192,7 @@ class BlogsTile extends StatelessWidget {
                           onPressed: () {
                             FirebaseFirestore.instance.runTransaction(
                                 (Transaction myTransaction) async {
-                              await myTransaction.delete(
+                               myTransaction.delete(
                                   snapshot.data.documents[index].reference);
                             });
                             Navigator.pop(context);

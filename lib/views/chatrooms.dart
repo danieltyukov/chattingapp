@@ -2,12 +2,9 @@ import 'package:chattingapp/helper/authenticate.dart';
 import 'package:chattingapp/helper/constants.dart';
 import 'package:chattingapp/helper/getimagesusers.dart';
 import 'package:chattingapp/helper/helperfunctions.dart';
-import 'package:chattingapp/helper/theme.dart';
 import 'package:chattingapp/services/auth.dart';
 import 'package:chattingapp/services/database.dart';
 import 'package:chattingapp/views/chat.dart';
-import 'package:chattingapp/views/profile.dart';
-import 'package:chattingapp/views/profiledisplay.dart';
 import 'package:chattingapp/views/search.dart';
 import 'package:chattingapp/widget/drawer.dart';
 import 'package:chattingapp/widget/offline.dart';
@@ -50,7 +47,7 @@ class _ChatRoomState extends State<ChatRoom> {
                   );
                 },
               )
-            : Container();
+            : Text("Kill your self");
       },
     );
   }
@@ -279,7 +276,7 @@ class ChatRoomsTile extends StatelessWidget {
                             onPressed: () {
                               FirebaseFirestore.instance.runTransaction(
                                   (Transaction myTransaction) async {
-                                await myTransaction.delete(
+                                myTransaction.delete(
                                     snapshot.data.documents[index].reference);
                               });
                               Navigator.pop(context);

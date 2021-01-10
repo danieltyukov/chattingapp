@@ -26,7 +26,7 @@ class _MainProfilePageState extends State<MainProfilePage> {
   }
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
 
     setState(() {});
   }

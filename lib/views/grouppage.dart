@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:after_layout/after_layout.dart';
 import 'package:chattingapp/helper/constants.dart';
 import 'package:chattingapp/services/database.dart';
-import 'package:chattingapp/views/snake.dart';
 import 'package:chattingapp/widget/drawer.dart';
 import 'package:chattingapp/widget/offline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,7 +44,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   initUser() async {
-    user = await _auth.currentUser;
+    user = _auth.currentUser;
 
     setState(() {});
   }
