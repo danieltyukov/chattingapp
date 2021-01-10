@@ -14,7 +14,7 @@ Widget drawer(BuildContext context) {
       children: <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(
-            color: Color(0xff0C1C3E),
+            color: const Color(0xff0C1C3E),
           ),
           child: Image.asset(
             "assets/images/chatapplogo.png",

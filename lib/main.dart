@@ -44,9 +44,9 @@ class _MyAppState extends State<MyApp> {
       title: 'chattingapp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xff0C1C3E),
-        scaffoldBackgroundColor: Color(0xff1F1F1F),
-        accentColor: Color(0xff036240),
+        primaryColor: const Color(0xff0C1C3E),
+        scaffoldBackgroundColor: const Color(0xff1F1F1F),
+        accentColor: const Color(0xff036240),
         fontFamily: "OverpassRegular",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

@@ -39,7 +39,6 @@ class _SignUpState extends State<SignUp> {
           .then(
         (result) {
           print('$result');
-          print('HERE IS WHAT YOUR LOOKING FOR');
           if (result != null) {
             Map<String, String> userDataMap = {
               "userName": usernameEditingController.text,
@@ -151,7 +150,7 @@ class _SignUpState extends State<SignUp> {
                             controller: emailEditingController,
                             style: simpleTextStyle(),
                             validator: (val) {
-                              final aspireVal = val.contains('gmail');
+                              final aspireVal = val.contains('@');
                               final regResult =
                                   RegExp(r"^[a-zA.]+@[a-zA.-]+\.[a-zA]+")
                                       .hasMatch(val);

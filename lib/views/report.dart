@@ -51,7 +51,7 @@ class ReportPage extends StatelessWidget {
             ),
             Container(
               child: Text(
-                'Daniel Tyukov: tyukovdaniel@gmail.com',
+                'Daniel Tyukov: contact@danieltyukov.com',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

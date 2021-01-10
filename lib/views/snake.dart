@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
 
-
 class SnakeGame extends StatefulWidget {
   @override
   _SnakeGameState createState() => _SnakeGameState();
