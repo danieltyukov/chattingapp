@@ -158,11 +158,11 @@ class _SignUpState extends State<SignUp> {
                               if (regResult && hasData && aspireVal) {
                                 return null;
                               } else {
-                                return 'Has To Be Your Valid Gmail Email';
+                                return 'Has To Be Your Valid Email Address';
                               }
                             },
                             decoration:
-                                textFieldInputDecoration("Gmail Email"),
+                                textFieldInputDecoration("Email Address"),
                           ),
                           TextFormField(
                             obscureText: true,

@@ -55,8 +55,8 @@ class NotificationSettings {
       Platform.isAndroid
           ? 'com.dfa.flutterchatdemo'
           : 'com.duytq.flutterchatdemo',
-      'Flutter chat demo',
-      'your channel description',
+      'chattingapp',
+      'chattingapp notifications',
       playSound: true,
       enableVibration: true,
       importance: Importance.max,

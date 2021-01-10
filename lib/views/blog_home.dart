@@ -107,47 +107,43 @@ class _BlogHomePageState extends State<BlogHomePage> {
         }
       },
       child: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: [
-                Text(
-                  'Chat',
-                  style: TextStyle(fontSize: 22),
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text(
+                'Chat',
+                style: TextStyle(fontSize: 22),
+              ),
+              Text(
+                'News',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.lightBlue,
                 ),
-                Text(
-                  'News',
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.lightBlue,
-                  ),
-                )
-              ],
-            ),
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
+              )
+            ],
           ),
-          drawer: drawer(context),
-          body: BlogList(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton:
-              
-                      '${user?.email}' == 'tyukovdaniel@gmail.com'
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CreateBlog(),
-                            ),
-                          );
-                        },
-                        child: Icon(Icons.add),
-                      ),
-                    )
-                  : null),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        drawer: drawer(context),
+        body: BlogList(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateBlog(),
+                ),
+              );
+            },
+            child: Icon(Icons.add),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -170,8 +166,7 @@ class BlogsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: 
-              '${user?.email}' == 'tyukovdaniel@gmail.com'
+      onLongPress: '${user?.email}' == 'tyukovdaniel@gmail.com'
           ? () {
               showDialog(
                   context: context,
@@ -192,7 +187,7 @@ class BlogsTile extends StatelessWidget {
                           onPressed: () {
                             FirebaseFirestore.instance.runTransaction(
                                 (Transaction myTransaction) async {
-                               myTransaction.delete(
+                              myTransaction.delete(
                                   snapshot.data.documents[index].reference);
                             });
                             Navigator.pop(context);
