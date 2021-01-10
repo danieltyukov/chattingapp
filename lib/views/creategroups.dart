@@ -1,5 +1,6 @@
 import 'package:chattingapp/groups/userItem.dart';
 import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/theme.dart';
 import 'package:chattingapp/views/groupchat.dart';
 import 'package:chattingapp/widget/offline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,8 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
-import '../groups/colors.dart';
 import '../groups/userModel.dart';
 
 class GroupCreateScreen extends StatefulWidget {
@@ -56,7 +55,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
     String groupName = textEditingController.text;
     FirebaseFirestore.instance.collection('threads').doc(threadId).set({
       'name': groupName,
-      'photoUrl': groupPhoto,
+      'photoUrl': CustomTheme.groupPhoto,
       'id': threadId,
       'users': _selectedUsers
           .map((item) => FirebaseFirestore.instance
@@ -145,7 +144,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
         appBar: AppBar(
           title: Text(
             'Create Group',
-            style: TextStyle(color: thirdColor, fontWeight: FontWeight.bold),
+            style: TextStyle(color: CustomTheme.thirdColor, fontWeight: FontWeight.bold),
           ),
         ),
         body: LoadingStack(
@@ -159,7 +158,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                    valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.primaryColor),
                   ),
                 );
                 //
@@ -207,7 +206,7 @@ class GroupCreateScreenState extends State<GroupCreateScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.arrow_forward),
           onPressed: () => onAlertWithCustomContentPressed(context),
-          backgroundColor: accentColor,
+          backgroundColor: CustomTheme.accentColor,
         ),
       ),
     );

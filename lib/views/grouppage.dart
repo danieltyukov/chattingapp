@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:chattingapp/helper/constants.dart';
+import 'package:chattingapp/helper/theme.dart';
 import 'package:chattingapp/services/database.dart';
 import 'package:chattingapp/widget/drawer.dart';
 import 'package:chattingapp/widget/offline.dart';
@@ -13,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../groups/colors.dart';
 import '../groups/loading_stack.dart';
 import '../groups/userModel.dart';
 import '../groups/thread.dart';
@@ -93,7 +93,8 @@ class HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          CustomTheme.primaryColor),
                     ),
                   );
                 } else {
@@ -237,7 +238,7 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                       child: Text(
                         threadData != null ? threadData.name : "",
                         style: TextStyle(
-                            color: textColor,
+                            color: CustomTheme.textColorOther,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
@@ -257,7 +258,7 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                             return "";
                           }
                         }()),
-                        style: TextStyle(color: textColor),
+                        style: TextStyle(color: CustomTheme.textColorOther),
                       ),
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
@@ -311,77 +312,11 @@ class _ThreadItemState extends State<ThreadItem> with AfterLayoutMixin {
                 );
               } else {
                 return Container();
-                //Here issue with reference being non retrievable.
-                //------------------------
-                // return GestureDetector(
-                //   onTap: () {
-                //     showDialog(
-                //         context: context,
-                //         barrierDismissible: true,
-                //         // ignore: missing_return
-                //         builder: (BuildContext context) {
-                //           return AlertDialog(
-                //             title: Text('Leave The Group?'),
-                //             content: Text('Do You Wish To Leave The Group?'),
-                //             actions: <Widget>[
-                //               FlatButton(
-                //                 child: Text('No'),
-                //                 onPressed: () {
-                //                   Navigator.pop(context);
-                //                 },
-                //               ),
-                //               FlatButton(
-                //                 child: Text('Yes'),
-                //                 onPressed: () async {
-                //                   print(threadData.id);
-                //                   print(widget.currentUserId);
-                //                   print(Firestore.instance
-                //                       .collection('users')
-                //                       .document('${widget.currentUserId}').documentID);
-                //                   // DocumentReference docRef = Firestore.instance
-                //                   //     .collection('threads')
-                //                   //     .document(widget.snapshot.data.documents);
-                //                   // print('${widget.thread}');
-                //                   // DocumentSnapshot doc = await docRef.get();
-                //                   // List userTags = doc.data['users'];
-                //                   // print("$userTags");
-                //                   await Firestore.instance
-                //                       .collection("threads")
-                //                       .document(threadData.id)
-                //                       .updateData({
-                //                     'users': FieldValue.arrayRemove([
-                //                       Firestore.instance
-                //                           .collection('users')
-                //                           .document('${widget.currentUserId}')
-                //                           .path
-                //                     ])
-                //                   });
-                //                   Navigator.pop(context);
-
-                //                   // await widget.thread.reference.updateData({
-                //                   //   'users': FieldValue.arrayRemove(
-                //                   //       ["/users/${Constants.myName}"])
-                //                   // });
-                //                   // // (item) => item.id == {Constants.myName});
-                //                 },
-                //               )
-                //             ],
-                //           );
-                //         });
-                //   },
-                //   child: Align(
-                //     alignment: Alignment.center,
-                //     child: Icon(
-                //       Icons.exit_to_app,
-                //       color: Colors.black,
-                //     ),
-                //   ),
-                // );
               }
             }())
           ],
         ),
-        color: thirdColor,
+        color: CustomTheme.thirdColor,
         padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),

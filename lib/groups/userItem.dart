@@ -1,4 +1,4 @@
-import 'colors.dart';
+import 'package:chattingapp/helper/theme.dart';
 
 import 'package:flutter/material.dart';
 import 'userModel.dart';
@@ -21,7 +21,7 @@ class UserItem extends StatelessWidget {
                 child: Text(user.userName.substring(0, 1).toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: primaryColor,
+                        color: CustomTheme.primaryColor,
                         fontSize: 16,
                         fontFamily: 'OverpassRegular',
                         fontWeight: FontWeight.bold)),
